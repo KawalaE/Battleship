@@ -13,7 +13,7 @@ export default class Ship {
     return this.length;
   }
 
-  gethitCount() {
+  getHitCount() {
     return this.hitCount;
   }
 
