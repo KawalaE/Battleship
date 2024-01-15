@@ -1,4 +1,4 @@
-class Ship {
+export default class Ship {
   constructor(name, length, hitCount = 0) {
     this.name = name;
     this.length = length;
@@ -22,18 +22,6 @@ class Ship {
   }
 
   hit() {
-    if (this.hitCount < this.length) {
-      this.hitCount += 1;
-    } else {
-      throw new Error("Impossible to hit sunken Ship");
-    }
+    this.hitCount += 1;
   }
 }
-const carrier = new Ship("Carrier", 5);
-carrier.hit();
-carrier.hit();
-carrier.hit();
-carrier.hit();
-carrier.hit();
-carrier.hit();
-console.log(carrier.gethitCount());
