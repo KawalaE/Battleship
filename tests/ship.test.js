@@ -4,30 +4,45 @@ describe("Ship class tests", () => {
   const carrier = new Ship("Carrier", 5);
   const destroyer = new Ship("Destroyer", 2, 2);
 
-  describe("Test getters", () => {
-    test("Gets ships name", () => {
-      carrier.getName();
+  describe("test getters", () => {
+    test("defines getName()", () => {
+      expect(typeof carrier.getName).toBe("function");
+    });
+    test("defines getLength()", () => {
+      expect(typeof carrier.getLength).toBe("function");
+    });
+    test("defines getHitCount())", () => {
+      expect(typeof carrier.getHitCount).toBe("function");
+    });
+    test("gets ships name", () => {
       expect(carrier.getName()).toBe("Carrier");
+      expect(destroyer.getName()).toBe("Destroyer");
     });
-    test("Gets ships length", () => {
-      carrier.getLength();
+    test("gets ships length", () => {
       expect(carrier.getLength()).toBe(5);
+      expect(destroyer.getLength()).toBe(2);
     });
-    test("Gets ships hit count", () => {
-      carrier.gethitCount();
-      expect(carrier.gethitCount()).toBe(0);
+    test("gets ships hit count", () => {
+      expect(carrier.getHitCount()).toBe(0);
+      expect(destroyer.getHitCount()).toBe(2);
     });
   });
-  describe("Test class methods", () => {
-    test("Registers that the ship has sunk", () => {
+  describe("test class methods", () => {
+    test("defines isSunk()", () => {
+      expect(typeof carrier.isSunk).toBe("function");
+    });
+    test("defines hit())", () => {
+      expect(typeof carrier.hit).toBe("function");
+    });
+    test("registers that the ship has sunk", () => {
       expect(destroyer.isSunk()).toBe(true);
     });
-    test("Registers that the ship is afloat", () => {
+    test("registers that the ship is afloat", () => {
       expect(carrier.isSunk()).toBe(false);
     });
-    test("Changes hit count after hit()", () => {
+    test("changes hit count after hit()", () => {
       carrier.hit();
-      expect(carrier.gethitCount()).toBe(1);
+      expect(carrier.getHitCount()).toBe(1);
     });
   });
 });
