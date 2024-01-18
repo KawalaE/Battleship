@@ -108,7 +108,7 @@ export default class Gameboard {
     this.setTile(x, y, "X");
   }
 
-  allShipSunk() {
+  allShipsSunk() {
     let sunkCount = 0;
     this.getShips().forEach((ship) => {
       if (ship.isSunk()) {

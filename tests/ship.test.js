@@ -5,22 +5,22 @@ describe("Ship class tests", () => {
   const destroyer = new Ship("Destroyer", 2, 7, 5, "vertical", 2);
 
   describe("test getters", () => {
-    test("defines getName()", () => {
+    test("defines getName", () => {
       expect(typeof carrier.getName).toBe("function");
     });
-    test("defines getLength()", () => {
+    test("defines getLength", () => {
       expect(typeof carrier.getLength).toBe("function");
     });
-    test("defines getXPos()", () => {
+    test("defines getXPos", () => {
       expect(typeof carrier.getXPos).toBe("function");
     });
-    test("defines getYPos()", () => {
+    test("defines getYPos", () => {
       expect(typeof carrier.getYPos).toBe("function");
     });
-    test("defines getOrientation()", () => {
+    test("defines getOrientation", () => {
       expect(typeof carrier.getOrientation).toBe("function");
     });
-    test("defines getHitCount())", () => {
+    test("defines getHitCount", () => {
       expect(typeof carrier.getHitCount).toBe("function");
     });
     test("gets ships name", () => {
