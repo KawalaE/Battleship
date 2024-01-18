@@ -1,7 +1,6 @@
 import Ship from "./ship";
 
 export default class Gameboard {
-
   constructor(size) {
     this.size = size;
     this.tiles = Array.from({ length: size }, () => new Array(size).fill(" "));
@@ -12,11 +11,31 @@ export default class Gameboard {
     return this.tiles;
   }
 
+  getSize() {
+    return this.size;
+  }
+
+  getTile(x, y) {
+    return this.tiles[y - 1][x - 1];
+  }
+
+  getShips() {
+    return this.ships;
+  }
+
+  getShipsCount() {
+    return this.ships.length;
+  }
+
+  setTile(x, y, value) {
+    this.tiles[y - 1][x - 1] = value;
+  }
+
   isAvailable(x, y, ship, vertical = false) {
     if (vertical) {
       if (!(y - 1 + ship.getLength() - 1 <= this.size - 1)) return false;
       for (let i = 0; i < ship.getLength(); i += 1) {
-        if (this.tiles[y - 1 + i][x - 1] === "O") {
+        if (this.getTile(x, y) === "O") {
           return false;
         }
       }
@@ -33,36 +52,53 @@ export default class Gameboard {
     if (this.isAvailable(x, y, ship, vertical)) {
       if (vertical) {
         for (let i = 0; i < ship.getLength(); i += 1) {
-          this.tiles[y - 1 + i][x - 1] = "O";
+          this.setTile(x, y + 1, "O");
         }
         success = true;
       } else {
         for (let i = 0; i < ship.getLength(); i += 1) {
-          this.tiles[y - 1][x - 1 + i] = "O";
+          this.setTile(x - 1, y, "O");
         }
         success = true;
       }
-      let shipData = {
+      const shipData = {
         shipInfo: ship,
         xCoordinate: x,
-        yCoorditane: y,
+        yCoordinate: y,
         isVertical: vertical,
-      }
+      };
       if (success) this.ships.push(shipData);
     }
   }
 
-  /*receiveAttack(x, y) {
-    
-  }*/
+  receiveAttack(x, y) {
+    this.setTile(x, y, "X");
+    this.getShips().forEach((ship) => {
+      if (ship.isVertical && ship.xCoordinate === x) {
+        const lastY = ship.yCoordinate + ship.shipInfo.getLength() - 1;
+        if (y >= ship.yCoordinate && y <= lastY) {
+          ship.shipInfo.hit();
+        }
+      } else if (!ship.isVertical && ship.yCoordinate === y) {
+        const lastX = ship.xCoordinate + ship.shipInfo.getLength() - 1;
+        if (x >= ship.xCoordinate && x <= lastX) {
+          ship.shipInfo.hit();
+        }
+      }
+    });
+  }
+
+  allShipSunk() {
+    let sunkenCount = 0;
+    if (this.getShipsCount() === 0) return false;
+    this.getShips().forEach((ship) => {
+      if (ship.shipInfo.isSunk()) {
+        sunkenCount += 1;
+      }
+    });
+    return sunkenCount === this.getShipsCount();
+  }
 }
 let gameboard = new Gameboard(10);
-const carrier = new Ship("Carrier", 2);
-const battleship = new Ship("Battleship", 4);
-const cruiser = new Ship("Cruiser", 3);
-console.log(gameboard.placeShip(6, 4, carrier));
-console.log(gameboard.isAvailable(1, 5, battleship));
-console.log(gameboard.placeShip(1, 7, cruiser, true));
-console.log(gameboard.receiveAttack(7, 4));
-console.log(gameboard.ships);
-console.log(gameboard.tiles);
+gameboard.receiveAttack(1,1);
+console.log(gameboard.getBoard());

@@ -1,7 +1,10 @@
 export default class Ship {
-  constructor(name, length, hitCount = 0) {
+  constructor(name, length, xPos, yPos, orientation, hitCount = 0) {
     this.name = name;
     this.length = length;
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.orientation = orientation;
     this.hitCount = hitCount;
   }
 
@@ -11,6 +14,18 @@ export default class Ship {
 
   getLength() {
     return this.length;
+  }
+
+  getXPos() {
+    return this.xPos;
+  }
+
+  getYPos() {
+    return this.yPos;
+  }
+
+  getOrientation() {
+    return this.orientation;
   }
 
   getHitCount() {

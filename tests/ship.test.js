@@ -1,8 +1,8 @@
 import Ship from "../src/ship";
 
 describe("Ship class tests", () => {
-  const carrier = new Ship("Carrier", 5);
-  const destroyer = new Ship("Destroyer", 2, 2);
+  const carrier = new Ship("Carrier", 5, 2, 3, "horizontal");
+  const destroyer = new Ship("Destroyer", 2, 7, 5, "vertical", 2);
 
   describe("test getters", () => {
     test("defines getName()", () => {
@@ -10,6 +10,15 @@ describe("Ship class tests", () => {
     });
     test("defines getLength()", () => {
       expect(typeof carrier.getLength).toBe("function");
+    });
+    test("defines getXPos()", () => {
+      expect(typeof carrier.getXPos).toBe("function");
+    });
+    test("defines getYPos()", () => {
+      expect(typeof carrier.getYPos).toBe("function");
+    });
+    test("defines getOrientation()", () => {
+      expect(typeof carrier.getOrientation).toBe("function");
     });
     test("defines getHitCount())", () => {
       expect(typeof carrier.getHitCount).toBe("function");
@@ -21,6 +30,18 @@ describe("Ship class tests", () => {
     test("gets ships length", () => {
       expect(carrier.getLength()).toBe(5);
       expect(destroyer.getLength()).toBe(2);
+    });
+    test("gets ships x coordinate", () => {
+      expect(carrier.getXPos()).toBe(2);
+      expect(destroyer.getXPos()).toBe(7);
+    });
+    test("gets ships y coordinate", () => {
+      expect(carrier.getYPos()).toBe(3);
+      expect(destroyer.getYPos()).toBe(5);
+    });
+    test("gets ships orienatation (vertical or horizontal)", () => {
+      expect(carrier.getOrientation()).toBe("horizontal");
+      expect(destroyer.getOrientation()).toBe("vertical");
     });
     test("gets ships hit count", () => {
       expect(carrier.getHitCount()).toBe(0);
