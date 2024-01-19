@@ -1,6 +1,7 @@
 import Gameboard from "../src/gameboard";
 import Ship from "../src/ship";
 
+
 describe("Gameboard class tests", () => {
   let gameboard = new Gameboard(3);
   beforeEach(() => {
@@ -43,7 +44,7 @@ describe("Gameboard class tests", () => {
     });
   });
 
-  describe("test getters and setters", () => {
+  describe("test getters, setters and adding ship", () => {
     const carrier = new Ship("carrier", 5, 1, 2, "horizontal");
     test("returns gameboard array", () => {
       expect(gameboard.getBoard()).toEqual(
@@ -81,4 +82,34 @@ describe("Gameboard class tests", () => {
       expect(gameboard.getShipsCount()).toEqual(1);
     });
   });
+
+  describe("test complex class methods", () => {
+    describe("test isAvailable method", () => {
+      test("determines if place is available", () => {
+        expect(gameboard.isAvailable(4, 1, 2, "vertical")).toBe(false);
+        expect(gameboard.isAvailable(3, 1, 2, "horizontal")).toBe(false);
+        gameboard.setTile(1, 1, "S");
+        expect(gameboard.isAvailable(1, 1, 2, "horizontal")).toBe(false);
+        expect(gameboard.isAvailable(3, 3, 1, "vertical")).toBe(true);
+      });
+    });
+    describe("test placeShip method", () => {
+      test("calls isAvailable method", () => {
+        const mockIsAvailable = jest.spyOn(gameboard, "isAvailable");
+        gameboard.placeShip("destroyer", 2, 1, 1, "horizontal");
+        expect(mockIsAvailable).toHaveBeenCalledWith(1, 1, 2, "horizontal");
+      });
+      test("calls addShip method", () => {
+        const mockAddShip = jest.spyOn(gameboard, "addShip");
+        gameboard.placeShip("destroyer", 2, 1, 1, "horizontal");
+        expect(mockAddShip).toHaveBeenCalled();
+        mockAddShip.mockReset();
+        gameboard.placeShip("destroyer", 4, 1, 1, "horizontal");
+        expect(mockAddShip).not.toHaveBeenCalled();
+        
+      });
+      
+    })
+  })
+   
 });

@@ -36,7 +36,7 @@ export default class Gameboard {
   }
 
   isAvailable(x, y, length, orientation) {
-    if (x < 1 || x > 10 || y > 10 || y < 1) {
+    if (x < 1 || x > this.getSize() || y > this.getSize() || y < 1) {
       return false;
     }
     if (orientation === "horizontal") {
