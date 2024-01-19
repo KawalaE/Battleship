@@ -106,10 +106,46 @@ describe("Gameboard class tests", () => {
         mockAddShip.mockReset();
         gameboard.placeShip("destroyer", 4, 1, 1, "horizontal");
         expect(mockAddShip).not.toHaveBeenCalled();
-        
       });
-      
+      test("placeShip places ship", () => {
+        expect(gameboard.getTile(1, 1)).toBe(" ");
+        expect(gameboard.getTile(1, 2)).toBe(" ");
+        gameboard.placeShip("destroyer", 2, 1, 1, "horizontal");
+        expect(gameboard.getTile(1, 1)).toBe("S");
+        expect(gameboard.getTile(2, 1)).toBe("S");
+      });
     })
-  })
-   
+    describe("test receiveAttack method", () => {
+      test("sets tile as X (while prev tile was empty)", () => {
+        expect(gameboard.getTile(1, 1)).toBe(" ");
+        gameboard.receiveAttack(1, 1);
+        expect(gameboard.getTile(1, 1)).toBe("X");
+      });
+      test("sets tile as X (while prev tile was S)", () => {
+        gameboard.placeShip("destroyer", 2, 1, 1, "horizontal");
+        expect(gameboard.getTile(1, 1)).toBe("S");
+        gameboard.receiveAttack(1, 1);
+        expect(gameboard.getTile(1, 1)).toBe("X");
+      });
+      test("hits the ship", () => {
+        gameboard.placeShip("destroyer", 2, 3, 1, "vertical");
+        const shipObject = gameboard.getShips()[gameboard.getShipsCount() - 1];
+        const mockHit = jest.spyOn(shipObject, "hit");
+        gameboard.receiveAttack(3, 1);
+        expect(mockHit).toHaveBeenCalled();
+      });
+    });
+    describe("test allShipSunk method", () => {
+      test("checks if all ships have sunk", () => {
+        gameboard.placeShip("destroyer", 2, 3, 1, "vertical");
+        gameboard.placeShip("destroyer", 2, 1, 2, "horizontal");
+        expect(gameboard.allShipsSunk()).toBe(false);
+        gameboard.receiveAttack(3, 1);
+        gameboard.receiveAttack(3, 2);
+        gameboard.receiveAttack(1, 2);
+        gameboard.receiveAttack(2, 2);
+        expect(gameboard.allShipsSunk()).toBe(true);
+      });
+    });
+  });
 });
