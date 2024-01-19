@@ -1,7 +1,6 @@
 import Gameboard from "../src/gameboard";
 import Ship from "../src/ship";
 
-
 describe("Gameboard class tests", () => {
   let gameboard = new Gameboard(3);
   beforeEach(() => {
@@ -114,7 +113,7 @@ describe("Gameboard class tests", () => {
         expect(gameboard.getTile(1, 1)).toBe("S");
         expect(gameboard.getTile(2, 1)).toBe("S");
       });
-    })
+    });
     describe("test receiveAttack method", () => {
       test("sets tile as X (while prev tile was empty)", () => {
         expect(gameboard.getTile(1, 1)).toBe(" ");
