@@ -3,6 +3,7 @@ import Gameboard from "./gameboard";
 class Player {
   constructor(name) {
     this.name = name;
+    this.hits = [];
   }
 
   getName() {
@@ -16,9 +17,17 @@ class Player {
   }
 
   getRandCoords(board) {
-    const randX = this.getRandomInt(1, board.getSize());
-    const randY = this.getRandomInt(1, board.getSize());
+    const randX = this.getRandomInt(1, board.getSize() + 1);
+    const randY = this.getRandomInt(1, board.getSize() + 1);
     return [randX, randY];
+  }
+
+  setHit(value) {
+    this.hits.push(value);
+  }
+
+  getHits() {
+    return this.hits;
   }
 
   play(board, posX, posY) {
@@ -32,7 +41,10 @@ class Player {
     while (board.getTile(...coords) === "X") {
       coords = this.getRandCoords(board);
     }
-    console.log(coords)
+    if (board.getTile(...coords) === "S") {
+      this.setHit(coords);
+    }
+    console.log(this.getHits());
     board.receiveAttack(...coords);
   }
 }
@@ -45,4 +57,8 @@ gameboard.placeShip("Submarine", 3, 9, 3, "vertical");
 gameboard.placeShip("Destroyer", 2, 3, 9, "horizontal");
 console.log(gameboard.getBoard());
 player.playAI(gameboard);
+player.playAI(gameboard);
+player.playAI(gameboard);
+player.playAI(gameboard);
+
 console.log(gameboard.getBoard());
