@@ -1,11 +1,7 @@
-function getRandomInt(min, max) {
-  const minVal = Math.ceil(min);
-  const maxVal = Math.floor(max);
-  return Math.floor(Math.random() * (maxVal - minVal) + minVal);
-}
-
 export default function getRandCoords(board) {
-  const randX = getRandomInt(1, board.getSize() + 1);
-  const randY = getRandomInt(1, board.getSize() + 1);
+  const minVal = 1;
+  const maxVal = board.getSize() + 1;
+  const randX = Math.floor(Math.random() * (maxVal - minVal) + minVal);
+  const randY = Math.floor(Math.random() * (maxVal - minVal) + minVal);
   return [randX, randY];
 }

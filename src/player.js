@@ -2,46 +2,34 @@ import Gameboard from "./gameboard";
 import getRandCoords from "./helper";
 
 export default class Player {
-  constructor() {
-    this.hits = [];
+  constructor(size) {
+    this.enemyBoard = new Gameboard(size);
   }
 
-  getHits() {
-    return this.hits;
+  getEnemyBoard() {
+    return this.enemyBoard.getBoard();
   }
 
-  getTurn() {
-    return this.turn;
-  }
-
-  getHitsLength() {
-    return this.hits.length;
-  }
-
-  getLastHit() {
-    return this.hits[this.getHitsLength() - 1];
-  }
-
-  setHit(value) {
-    this.hits.push(value);
-  }
-
-  play(board, posX, posY) {
-    if (board.getTile(posX, posY) !== "X") {
-      board.receiveAttack(posX, posY);
+  play(posX, posY) {
+    if (this.enemyBoard.getTile(posX, posY) !== "X") {
+      this.enemyBoard.receiveAttack(posX, posY);
     }
   }
 
-  playComputer(board) {
-    let coords = getRandCoords(board);
-    while (board.getTile(...coords) === "X") {
-      coords = getRandCoords(board);
+  playComputer() {
+    let coords = getRandCoords(this.enemyBoard);
+    while (this.enemyBoard.getTile(...coords) === "X") {
+      coords = getRandCoords(this.enemyBoard);
     }
-    board.receiveAttack(...coords);
+    this.enemyBoard.receiveAttack(...coords);
   }
 }
-let player = new Player();
-let gameboard = new Gameboard(10);
-player.playComputer(gameboard);
-
-console.log(gameboard.getBoard());
+let gameboard = new Gameboard(5);
+const human = new Player(10);
+const computer = new Player(10);
+console.log(getRandCoords(gameboard))
+human.play(1,1);
+console.log(getRandCoords(gameboard));
+console.log(human.getEnemyBoard());
+computer.playComputer();
+console.log(computer.getEnemyBoard());
