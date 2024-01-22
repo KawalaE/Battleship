@@ -7,6 +7,10 @@ export default class Player {
   }
 
   getEnemyBoard() {
+    return this.enemyBoard;
+  }
+
+  getEnemyTiles() {
     return this.enemyBoard.getBoard();
   }
 
@@ -18,18 +22,12 @@ export default class Player {
 
   playComputer() {
     let coords = getRandCoords(this.enemyBoard);
-    while (this.enemyBoard.getTile(...coords) === "X") {
+    while (this.getEnemyBoard().getTile(...coords) === "X") {
       coords = getRandCoords(this.enemyBoard);
     }
-    this.enemyBoard.receiveAttack(...coords);
+    this.getEnemyBoard().receiveAttack(...coords);
   }
 }
-let gameboard = new Gameboard(5);
-const human = new Player(10);
-const computer = new Player(10);
-console.log(getRandCoords(gameboard))
-human.play(1,1);
-console.log(getRandCoords(gameboard));
-console.log(human.getEnemyBoard());
-computer.playComputer();
-console.log(computer.getEnemyBoard());
+const player = new Player(5);
+console.log(player.playComputer());
+console.log(player.getEnemyTiles());

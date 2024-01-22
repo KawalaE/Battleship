@@ -46,11 +46,11 @@ describe("Gameboard class tests", () => {
   describe("test getters, setters and adding ship", () => {
     const carrier = new Ship("carrier", 5, 1, 2, "horizontal");
     test("returns gameboard array", () => {
-      expect(gameboard.getBoard()).toEqual(
-        [[" ", " ", " "],
+      expect(gameboard.getBoard()).toEqual([
         [" ", " ", " "],
-        [" ", " ", " "]]
-      );
+        [" ", " ", " "],
+        [" ", " ", " "],
+      ]);
     });
     test("returns size of gameboard", () => {
       expect(gameboard.getSize()).toEqual(3);
