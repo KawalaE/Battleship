@@ -21,11 +21,11 @@ function createSections() {
   rightSide.classList.add("right-side");
   boardsSection.appendChild(rightSide);
 }
-function displayBoards() {
-  const tiles = human.getEnemyTiles();
+function displayBoard(player, className, sideClass) {
+  const tiles = player.getEnemyTiles();
   const board = document.createElement("div");
-	board.classList.add("board");
-  document.querySelector(".left-side").appendChild(board);
+	board.classList.add(`${className}`);
+  document.querySelector(`${sideClass}`).appendChild(board);
   tiles.forEach((row, y) => {
     row.forEach((cube, x) => {
       const boardCube = document.createElement("div");
@@ -37,4 +37,5 @@ function displayBoards() {
 	})
 }
 createSections();
-displayBoards();
+displayBoard(human, "board-left", ".left-side");
+displayBoard(computer, "board-right", ".right-side");

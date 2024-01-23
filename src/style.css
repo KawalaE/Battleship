@@ -16,7 +16,7 @@ body{
     justify-content: center;
     color:palegoldenrod
 }
-.left-side{
+.left-side, .right-side{
     width: 50%;
     height: inherit;
     display: flex;
@@ -24,11 +24,7 @@ body{
     justify-content: center;
     
 }
-.right-side{
-    width: 50%;
-    height: inherit;
-}
-.board{
+.board-left, .board-right{
     margin: 2vmin;
     display: grid;
     grid-template-columns: repeat(10, 4.6vmin);
@@ -37,6 +33,10 @@ body{
     border: 1.5vmin solid #699BF7;
     border-radius: 5%;
 
+}
+.board-right{
+    background-color: #FF8577;
+    border: 1.5vmin solid #FF8577;
 }
 .cube{
     position: relative;
