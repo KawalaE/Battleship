@@ -29,13 +29,26 @@ body{
     height: inherit;
 }
 .board{
-    width: 46vmin;
-    display: flex;
-    flex-wrap: wrap;
+    margin: 2vmin;
+    display: grid;
+    grid-template-columns: repeat(10, 4.6vmin);
+    grid-template-rows: repeat(10, 4.6vmin);
+    background-color: #699BF7;
+    border: 1.5vmin solid #699BF7;
+    border-radius: 5%;
 
 }
 .cube{
-    width: 4.6vmin;
-    height: 4.6vmin;
-    background-color: pink;
+    position: relative;
+    border-radius: 8px;
+    border: 2px solid #000;
+    background: #FFF;
+    box-shadow: 2px 2px 0px 0px #000;
+    cursor: pointer;
+    margin: 2.5px;
+}
+.cube:hover {
+    box-shadow: 0px 0px 0px 0px #000;
+    top: 2px;
+    left: 2px
 }
