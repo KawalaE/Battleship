@@ -28,6 +28,3 @@ export default class Player {
     this.getEnemyBoard().receiveAttack(...coords);
   }
 }
-const player = new Player(5);
-console.log(player.playComputer());
-console.log(player.getEnemyTiles());
