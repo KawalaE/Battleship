@@ -105,3 +105,41 @@ button.computer{
     top: 2px;
     left: 2px
 }
+.ship-start-horizontal{
+    background-image:url('assets/Boat-Start-Horizontal.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3.6vmin 3.6vmin
+}
+.ship-end-horizontal{
+    background-image:url('assets/Boat-End-Horizontal.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3.6vmin 3.6vmin
+}
+.ship-middle-horizontal{
+    background-image:url('assets/Boat-Middle-Horizontal.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 4vmin 4vmin
+
+}
+/*vertical*/
+.ship-start-vertical{
+    background-image:url('assets/Boat-Start-Vertical.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3.6vmin 3.6vmin
+}
+.ship-end-vertical{
+    background-image:url('assets/Boat-End-Vertical.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3.6vmin 3.6vmin
+}
+.ship-middle-vertical{
+    background-image:url('assets/Boat-Middle-Vertical.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 4vmin 4vmin;
+}

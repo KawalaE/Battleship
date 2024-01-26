@@ -48,6 +48,38 @@ function displayBoard(player, className, sideClass) {
     });
   });
 }
+function displayShip(length, x, y, orientation) {
+  let cube = document.getElementById(`{"x": ${x}, "y": ${y}}`);
+  if (orientation === "horizontal") {
+    cube.classList.add("ship-start-horizontal");
+    for (let i = x + 1; i < x + length - 1; i += 1) {
+      cube = document.getElementById(`{"x": ${i}, "y": ${y}}`);
+      cube.classList.add("ship-middle-horizontal");
+    }
+    cube = document.getElementById(`{"x": ${x + length - 1}, "y": ${y}}`);
+    cube.classList.add("ship-end-horizontal");
+  } else if (orientation === "vertical") {
+    cube.classList.add("ship-start-vertical");
+    for (let i = y + 1; i < y + length - 1; i += 1) {
+      cube = document.getElementById(`{"x": ${x}, "y": ${i}}`);
+      cube.classList.add("ship-middle-vertical");
+    }
+    cube = document.getElementById(`{"x": ${x}, "y": ${y + length - 1}}`);
+    cube.classList.add("ship-end-vertical");
+  }
+}
+function displayAllShips(board) {
+  const ships = board.getShips();
+  const arrIndexOffset = 1;
+  ships.forEach((ship) => {
+    displayShip(
+      ship.getLength(),
+      ship.getXPos() - arrIndexOffset,
+      ship.getYPos() - arrIndexOffset,
+      ship.getOrientation(),
+    );
+  });
+}
 
 createSections();
 boardTitle("human", "left-side", "Your board", "Enemy Board ->");
@@ -57,5 +89,8 @@ displayBoard(computer, "board-right", "right-side");
 
 human.play(1, 1);
 computer.playComputer();
+let board = computer.getEnemyBoard();
+board.placeShip("carrier", 5, 2, 5, "vertical");
+displayAllShips(board);
 console.log(human.getEnemyTiles());
 console.log(computer.getEnemyTiles());
