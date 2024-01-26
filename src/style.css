@@ -91,8 +91,15 @@ button.computer{
     background-image:url('assets/Cross.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 2vmin 2vmin;
+    background-size: 2vmin 2vmin
 }
+.miss{
+    background-image: url('assets/Dot.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0.8vmin 0.8vmin;
+}
+
 .cube:hover {
     box-shadow: 0px 0px 0px 0px #000;
     top: 2px;

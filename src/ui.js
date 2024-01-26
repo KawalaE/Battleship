@@ -44,7 +44,6 @@ function displayBoard(player, className, sideClass) {
       const boardCube = document.createElement("div");
       boardCube.id = `{"x": ${x}, "y": ${y}}`;
       boardCube.classList.add("cube");
-      boardCube.classList.add('hit');
       board.appendChild(boardCube);
     });
   });
