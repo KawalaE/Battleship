@@ -16,13 +16,31 @@ body{
     height: 100vh;
     overflow: hidden;
     background-color: #fff4e9;
+    display: flex;
+    flex-direction: column;
+}
+.game-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin: 6vmin;
+}
+.informator{
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+.rotate{
+    cursor: pointer;
+    padding: 3px 3px 3px 3px;
+    width: 100px;
 }
 .boards{
     width: 100%;
     height: 60vh;
     display: flex;
     justify-content: center;
-    color:palegoldenrod
+    flex-wrap: wrap;
 }
 .left-side, .right-side{
     width: 50%;
@@ -100,7 +118,7 @@ button.computer{
     background-size: 0.8vmin 0.8vmin;
 }
 
-.cube:hover {
+.cube:hover, .rotate:hover {
     box-shadow: 0px 0px 0px 0px #000;
     top: 2px;
     left: 2px

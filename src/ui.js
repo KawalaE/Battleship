@@ -30,6 +30,24 @@ function boardTitle(player, sideClass, text, btnText) {
   titleSection.appendChild(boardOwner);
   titleSection.appendChild(enemyBoardPointer);
 }
+function displayInfomator() {
+  const gameInfo = document.createElement("div");
+  gameInfo.classList.add("game-info");
+  document.body.appendChild(gameInfo);
+  const informator = document.createElement("div");
+  informator.classList.add("informator");
+  informator.textContent = "Info about current game loop status";
+  const rotateBtn = document.createElement("button");
+  rotateBtn.classList.add("rotate");
+  rotateBtn.textContent = "Horizontal";
+  rotateBtn.addEventListener("click", () => {
+    if (rotateBtn.textContent === "Horizontal") {
+      rotateBtn.textContent = "Vertical";
+    } else rotateBtn.textContent = "Horizontal";
+  });
+  gameInfo.appendChild(informator);
+  gameInfo.appendChild(rotateBtn);
+}
 function displayBoard(player, className, sideClass) {
   const tiles = player.getEnemyTiles();
   const board = document.createElement("div");
@@ -88,7 +106,7 @@ function displayAllShips(board, boardClass) {
     );
   });
 }
-function placeShipsUI(board, boardClass) {
+function placeShipsUI(board, boardClass, name, length, orienatation) {
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
   // eslint-disable-next-line no-restricted-syntax
   for (const cube of boardUI) {
@@ -96,16 +114,18 @@ function placeShipsUI(board, boardClass) {
       const currentCube = cube.id;
       const clickedX = JSON.parse(currentCube).x;
       const clickedY = JSON.parse(currentCube).y;
-      board.placeShip("carrier", 5, clickedX + 1, clickedY + 1, "vertical");
+      board.placeShip(name, length, clickedX + 1, clickedY + 1, orienatation);
       displayAllShips(board, boardClass);
+      console.log(board.getBoard());
     });
   }
 }
 
+displayInfomator();
 createSections();
 boardTitle("human", "left-side", "Your board", "Enemy Board ->");
 boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
 displayBoard(human, "board-left", "left-side");
 displayBoard(computer, "board-right", "right-side");
 const board = computer.getEnemyBoard();
-placeShipsUI(board, "board-left");
+placeShipsUI(board, "board-left","carrier", 4, "vertical");
