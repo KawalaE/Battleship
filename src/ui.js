@@ -5,16 +5,12 @@ const human = new Player(10);
 const computer = new Player(10);
 
 function createSections() {
-  // create boards section
   const boardsSection = document.createElement("div");
   boardsSection.classList.add("boards");
   document.body.appendChild(boardsSection);
-  // left part
   const leftSide = document.createElement("div");
   leftSide.classList.add("left-side");
   boardsSection.appendChild(leftSide);
-
-  // right part
   const rightSide = document.createElement("div");
   rightSide.classList.add("right-side");
   boardsSection.appendChild(rightSide);
@@ -48,27 +44,38 @@ function displayBoard(player, className, sideClass) {
     });
   });
 }
-function displayShip(length, x, y, orientation) {
-  let cube = document.getElementById(`{"x": ${x}, "y": ${y}}`);
+function getCube(boardClass, idInfo) {
+  const board = document.getElementsByClassName(`${boardClass}`)[0].children;
+  let cube;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const currCube of board) {
+    if (currCube.id === idInfo) {
+      cube = currCube;
+    }
+  }
+  return cube;
+}
+function displayShip(length, x, y, orientation, boardClass) {
+  let cube = getCube(boardClass, `{"x": ${x}, "y": ${y}}`);
   if (orientation === "horizontal") {
     cube.classList.add("ship-start-horizontal");
     for (let i = x + 1; i < x + length - 1; i += 1) {
-      cube = document.getElementById(`{"x": ${i}, "y": ${y}}`);
+      cube = getCube(boardClass, `{"x": ${i}, "y": ${y}}`);
       cube.classList.add("ship-middle-horizontal");
     }
-    cube = document.getElementById(`{"x": ${x + length - 1}, "y": ${y}}`);
+    cube = getCube(boardClass, `{"x": ${x + length - 1}, "y": ${y}}`);
     cube.classList.add("ship-end-horizontal");
   } else if (orientation === "vertical") {
     cube.classList.add("ship-start-vertical");
     for (let i = y + 1; i < y + length - 1; i += 1) {
-      cube = document.getElementById(`{"x": ${x}, "y": ${i}}`);
+      cube = getCube(boardClass, `{"x": ${x}, "y": ${i}}`);
       cube.classList.add("ship-middle-vertical");
     }
-    cube = document.getElementById(`{"x": ${x}, "y": ${y + length - 1}}`);
+    cube = getCube(boardClass, `{"x": ${x}, "y": ${y + length - 1}}`);
     cube.classList.add("ship-end-vertical");
   }
 }
-function displayAllShips(board) {
+function displayAllShips(board, boardClass) {
   const ships = board.getShips();
   const arrIndexOffset = 1;
   ships.forEach((ship) => {
@@ -77,6 +84,7 @@ function displayAllShips(board) {
       ship.getXPos() - arrIndexOffset,
       ship.getYPos() - arrIndexOffset,
       ship.getOrientation(),
+      boardClass,
     );
   });
 }
@@ -87,10 +95,12 @@ boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
 displayBoard(human, "board-left", "left-side");
 displayBoard(computer, "board-right", "right-side");
 
-human.play(1, 1);
-computer.playComputer();
-let board = computer.getEnemyBoard();
+const board = human.getEnemyBoard();
 board.placeShip("carrier", 5, 2, 5, "vertical");
-displayAllShips(board);
+displayAllShips(board, "board-right");
+
+const board1 = computer.getEnemyBoard();
+board1.placeShip("carrier", 3, 7, 5, "horizontal");
+displayAllShips(board1, "board-left");
 console.log(human.getEnemyTiles());
 console.log(computer.getEnemyTiles());
