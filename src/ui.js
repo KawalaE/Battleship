@@ -88,19 +88,24 @@ function displayAllShips(board, boardClass) {
     );
   });
 }
+function placeShipsUI(board, boardClass) {
+  const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const cube of boardUI) {
+    cube.addEventListener("click", () => {
+      const currentCube = cube.id;
+      const clickedX = JSON.parse(currentCube).x;
+      const clickedY = JSON.parse(currentCube).y;
+      board.placeShip("carrier", 5, clickedX + 1, clickedY + 1, "vertical");
+      displayAllShips(board, boardClass);
+    });
+  }
+}
 
 createSections();
 boardTitle("human", "left-side", "Your board", "Enemy Board ->");
 boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
 displayBoard(human, "board-left", "left-side");
 displayBoard(computer, "board-right", "right-side");
-
-const board = human.getEnemyBoard();
-board.placeShip("carrier", 5, 2, 5, "vertical");
-displayAllShips(board, "board-right");
-
-const board1 = computer.getEnemyBoard();
-board1.placeShip("carrier", 3, 7, 5, "horizontal");
-displayAllShips(board1, "board-left");
-console.log(human.getEnemyTiles());
-console.log(computer.getEnemyTiles());
+const board = computer.getEnemyBoard();
+placeShipsUI(board, "board-left");
