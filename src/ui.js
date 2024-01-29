@@ -127,5 +127,9 @@ boardTitle("human", "left-side", "Your board", "Enemy Board ->");
 boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
 displayBoard(human, "board-left", "left-side");
 displayBoard(computer, "board-right", "right-side");
-const board = computer.getEnemyBoard();
-placeShipsUI(board, "board-left","carrier", 4, "vertical");
+//const board = computer.getEnemyBoard();
+//placeShipsUI(board, "board-left","carrier", 4, "vertical");
+
+let board = human.getEnemyBoard();
+board.placeEnemyShips();
+console.log(board.getBoard());

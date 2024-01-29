@@ -1,4 +1,5 @@
 import Ship from "./ship";
+import { getRandCoords, getRandomInt } from "./helper";
 
 export default class Gameboard {
   constructor(size) {
@@ -116,5 +117,38 @@ export default class Gameboard {
       }
     });
     return sunkCount === this.getShipsCount();
+  }
+
+  placeEnemyShips() {
+    let randomCoords = getRandCoords(this);
+    const directions = ["horizontal", "vertical"];
+    let randomDirection = getRandomInt(2);
+    const shipsInfo = [
+      { name: "carrier", length: 5 },
+      { name: "battleship", length: 4 },
+      { name: "cruiser", length: 3 },
+      { name: "submarine", length: 3 },
+      { name: "destroyer", length: 2 },
+    ];
+    for (let i = 0; i < shipsInfo.length; i += 1) {
+      while (
+        this.isAvailable(
+          randomCoords[0],
+          randomCoords[1],
+          shipsInfo[i].length,
+          directions[randomDirection],
+        ) !== true
+      ) {
+        randomCoords = getRandCoords(this);
+        randomDirection = getRandomInt(2);
+      }
+      this.placeShip(
+        shipsInfo[i].name,
+        shipsInfo[i].length,
+        randomCoords[0],
+        randomCoords[1],
+        directions[randomDirection],
+      );
+    }
   }
 }
