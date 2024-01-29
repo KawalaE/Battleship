@@ -106,18 +106,48 @@ function displayAllShips(board, boardClass) {
     );
   });
 }
-function placeShipsUI(board, boardClass, name, length, orienatation) {
+function insertFleet(board, boardClass, cube, fleet, boardUI) {
+  if (board.getShipsCount() === 5) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const c of boardUI) {
+      console.log(c);
+      c.removeEventListener("click", insertFleet);
+    }
+    return;
+  }
+  const orienatation = document
+    .querySelector(".rotate")
+    .textContent.toLocaleLowerCase();
+
+  const currentCube = cube.id;
+  const clickedX = JSON.parse(currentCube).x;
+  const clickedY = JSON.parse(currentCube).y;
+  board.placeShip(
+    fleet[board.getShipsCount()].name,
+    fleet[board.getShipsCount()].length,
+    clickedX + 1,
+    clickedY + 1,
+    orienatation,
+  );
+  displayAllShips(board, boardClass);
+}
+function placeShipsUI(board, boardClass) {
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
   // eslint-disable-next-line no-restricted-syntax
+  const shipsInfo = [
+    { name: "carrier", length: 5 },
+    { name: "battleship", length: 4 },
+    { name: "cruiser", length: 3 },
+    { name: "submarine", length: 3 },
+    { name: "destroyer", length: 2 },
+  ];
+  // eslint-disable-next-line no-restricted-syntax
   for (const cube of boardUI) {
-    cube.addEventListener("click", () => {
-      const currentCube = cube.id;
-      const clickedX = JSON.parse(currentCube).x;
-      const clickedY = JSON.parse(currentCube).y;
-      board.placeShip(name, length, clickedX + 1, clickedY + 1, orienatation);
-      displayAllShips(board, boardClass);
-      console.log(board.getBoard());
-    });
+    // eslint-disable-next-line no-loop-func
+    cube.addEventListener(
+      "click",
+      insertFleet.bind(null, board, boardClass, cube, shipsInfo, boardUI),
+    );
   }
 }
 
@@ -127,12 +157,12 @@ boardTitle("human", "left-side", "Your board", "Enemy Board ->");
 boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
 displayBoard(human, "board-left", "left-side");
 displayBoard(computer, "board-right", "right-side");
-//const board = computer.getEnemyBoard();
-//placeShipsUI(board, "board-left","carrier", 4, "vertical");
+const board = computer.getEnemyBoard();
+console.log(placeShipsUI(board, "board-left"));
 
-const board = human.getEnemyBoard();
-board.placeEnemyShips();
-displayAllShips(board, "board-right");
-console.log(board.getBoard())
+const board1 = human.getEnemyBoard();
+board1.placeEnemyShips();
+displayAllShips(board1, "board-right");
+console.log(board1.getBoard())
 computer.playComputer();
 console.log(computer.getEnemyBoard());
