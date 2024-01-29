@@ -130,6 +130,9 @@ displayBoard(computer, "board-right", "right-side");
 //const board = computer.getEnemyBoard();
 //placeShipsUI(board, "board-left","carrier", 4, "vertical");
 
-let board = human.getEnemyBoard();
+const board = human.getEnemyBoard();
 board.placeEnemyShips();
-console.log(board.getBoard());
+displayAllShips(board, "board-right");
+console.log(board.getBoard())
+computer.playComputer();
+console.log(computer.getEnemyBoard());

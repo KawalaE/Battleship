@@ -1,5 +1,5 @@
 import Gameboard from "./gameboard";
-import getRandCoords from "./helper";
+import { getRandCoords } from "./helper";
 
 export default class Player {
   constructor(size) {
@@ -21,7 +21,7 @@ export default class Player {
   }
 
   playComputer() {
-    let coords = getRandCoords(this.enemyBoard);
+    let coords = getRandCoords(this.getEnemyBoard());
     while (this.getEnemyBoard().getTile(...coords) === "X") {
       coords = getRandCoords(this.enemyBoard);
     }
