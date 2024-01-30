@@ -142,7 +142,6 @@ export default class Gameboard {
         randomCoords = getRandCoords(this);
         randomDirection = getRandomInt(2);
       }
-      console.log(randomCoords[0], randomCoords[1])
       this.placeShip(
         shipsInfo[i].name,
         shipsInfo[i].length,

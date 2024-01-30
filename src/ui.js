@@ -1,8 +1,4 @@
-import Player from "./player";
 import "./style.css";
-
-const human = new Player(10);
-const computer = new Player(10);
 
 function createSections() {
   const boardsSection = document.createElement("div");
@@ -48,7 +44,7 @@ function displayInfomator() {
   gameInfo.appendChild(informator);
   gameInfo.appendChild(rotateBtn);
 }
-function displayBoard(player, className, sideClass) {
+export function displayBoard(player, className, sideClass) {
   const tiles = player.getEnemyTiles();
   const board = document.createElement("div");
   board.classList.add(`${className}`);
@@ -62,7 +58,7 @@ function displayBoard(player, className, sideClass) {
     });
   });
 }
-function getCube(boardClass, idInfo) {
+export function getCube(boardClass, idInfo) {
   const board = document.getElementsByClassName(`${boardClass}`)[0].children;
   let cube;
   // eslint-disable-next-line no-restricted-syntax
@@ -73,7 +69,7 @@ function getCube(boardClass, idInfo) {
   }
   return cube;
 }
-function displayShip(length, x, y, orientation, boardClass) {
+export function displayShip(length, x, y, orientation, boardClass) {
   let cube = getCube(boardClass, `{"x": ${x}, "y": ${y}}`);
   if (orientation === "horizontal") {
     cube.classList.add("ship-start-horizontal");
@@ -93,7 +89,7 @@ function displayShip(length, x, y, orientation, boardClass) {
     cube.classList.add("ship-end-vertical");
   }
 }
-function displayAllShips(board, boardClass) {
+export function displayAllShips(board, boardClass) {
   const ships = board.getShips();
   const arrIndexOffset = 1;
   ships.forEach((ship) => {
@@ -106,7 +102,7 @@ function displayAllShips(board, boardClass) {
     );
   });
 }
-function insertFleet(board, boardClass, cube, fleet, boardUI) {
+export function insertFleet(board, boardClass, cube, fleet, boardUI) {
   if (board.getShipsCount() === 5) {
     // eslint-disable-next-line no-restricted-syntax
     for (const c of boardUI) {
@@ -145,7 +141,7 @@ function insertFleet(board, boardClass, cube, fleet, boardUI) {
   );
   displayAllShips(board, boardClass);
 }
-function placeShipsUI(board, boardClass) {
+export function placeShipsUI(board, boardClass) {
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
   // eslint-disable-next-line no-restricted-syntax
   const shipsInfo = [
@@ -171,14 +167,3 @@ displayInfomator();
 createSections();
 boardTitle("human", "left-side", "Your board", "Enemy Board ->");
 boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
-displayBoard(human, "board-left", "left-side");
-displayBoard(computer, "board-right", "right-side");
-const board = computer.getEnemyBoard();
-console.log(placeShipsUI(board, "board-left"));
-
-const board1 = human.getEnemyBoard();
-board1.placeEnemyShips();
-displayAllShips(board1, "board-right");
-console.log(board1.getBoard());
-computer.playComputer();
-console.log(computer.getEnemyBoard());
