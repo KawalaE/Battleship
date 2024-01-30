@@ -110,11 +110,11 @@ function insertFleet(board, boardClass, cube, fleet, boardUI) {
   if (board.getShipsCount() === 5) {
     // eslint-disable-next-line no-restricted-syntax
     for (const c of boardUI) {
-      console.log(c);
       c.removeEventListener("click", insertFleet);
     }
     return;
   }
+
   const orienatation = document
     .querySelector(".rotate")
     .textContent.toLocaleLowerCase();
@@ -122,6 +122,20 @@ function insertFleet(board, boardClass, cube, fleet, boardUI) {
   const currentCube = cube.id;
   const clickedX = JSON.parse(currentCube).x;
   const clickedY = JSON.parse(currentCube).y;
+
+  if (
+    board.getShipsCount() < 4 &&
+    board.isAvailable(
+      clickedX + 1,
+      clickedY + 1,
+      fleet[board.getShipsCount()].length,
+      orienatation,
+    )
+  ) {
+    const informator = document.querySelector(".informator");
+    informator.textContent = `Please place ${fleet[board.getShipsCount() + 1].name} of length ${fleet[board.getShipsCount() + 1].length}.`;
+  }
+
   board.placeShip(
     fleet[board.getShipsCount()].name,
     fleet[board.getShipsCount()].length,
@@ -141,6 +155,8 @@ function placeShipsUI(board, boardClass) {
     { name: "submarine", length: 3 },
     { name: "destroyer", length: 2 },
   ];
+  const informator = document.querySelector(".informator");
+  informator.textContent = `Please place ${shipsInfo[0].name} of length ${shipsInfo[0].length}.`;
   // eslint-disable-next-line no-restricted-syntax
   for (const cube of boardUI) {
     // eslint-disable-next-line no-loop-func
@@ -163,6 +179,6 @@ console.log(placeShipsUI(board, "board-left"));
 const board1 = human.getEnemyBoard();
 board1.placeEnemyShips();
 displayAllShips(board1, "board-right");
-console.log(board1.getBoard())
+console.log(board1.getBoard());
 computer.playComputer();
 console.log(computer.getEnemyBoard());
