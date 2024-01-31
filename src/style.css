@@ -118,7 +118,7 @@ button.computer{
     background-size: 0.8vmin 0.8vmin;
 }
 
-.cube:hover, .rotate:hover {
+.cube:hover, .rotate:hover, .clicked{
     box-shadow: 0px 0px 0px 0px #000;
     top: 2px;
     left: 2px

@@ -1,4 +1,10 @@
 import "./style.css";
+import Player from "./player";
+
+const human = new Player(10);
+const computer = new Player(10);
+const computerBoard = human.getEnemyBoard();
+const humanBoard = computer.getEnemyBoard();
 
 function createSections() {
   const boardsSection = document.createElement("div");
@@ -162,8 +168,36 @@ export function placeShipsUI(board, boardClass) {
     );
   }
 }
+function enemyAttackHandler(board, cube) {
+  const currentCube = cube.id;
+  const clickedX = JSON.parse(currentCube).x + 1;
+  const clickedY = JSON.parse(currentCube).y + 1;
+  if (board.getTile(clickedX, clickedY) === "S") {
+    cube.classList.add("hit");
+  } else cube.classList.add("miss");
+  cube.classList.add("clicked");
+  board.receiveAttack(clickedX, clickedY);
+}
+function attackEnemyUI(board, boardClass) {
+  const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const cube of boardUI) {
+    // eslint-disable-next-line no-loop-func
+    cube.addEventListener("click", enemyAttackHandler.bind(null, board, cube));
+  }
+}
 
 displayInfomator();
 createSections();
 boardTitle("human", "left-side", "Your board", "Enemy Board ->");
 boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
+displayBoard(human, "board-left", "left-side");
+displayBoard(computer, "board-right", "right-side");
+
+//place ships on enemy gameboard
+computerBoard.placeEnemyShips();
+console.log(computerBoard.getBoard());
+
+//user place ships on left board
+placeShipsUI(humanBoard, "board-left");
+attackEnemyUI(computerBoard, "board-right");
