@@ -178,6 +178,27 @@ function enemyAttackHandler(board, cube) {
   cube.classList.add("clicked");
   board.receiveAttack(clickedX, clickedY);
 }
+function attackHumanUI(board, boardClass) {
+  const coordinates = computer.playComputer();
+  const attackedX = coordinates[0];
+  const attackedY = coordinates[1];
+  let currentCube;
+  console.log(coordinates)
+  const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
+  // eslint-disabltricted-syntax
+  // eslint-disable-next-line no-restricted-syntax
+  for (const cube of boardUI) {
+    if (cube.id === `{"x": ${attackedX - 1}, "y": ${attackedY - 1}}`) {
+      currentCube = cube;
+    }
+  }
+  if (board.getTile(attackedX, attackedY) === "S") {
+    currentCube.classList.add("hit");
+  } else currentCube.classList.add("miss");
+  currentCube.classList.add("clicked");
+  board.receiveAttack(attackedX, attackedY);
+}
+
 function attackEnemyUI(board, boardClass) {
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
   // eslint-disable-next-line no-restricted-syntax
@@ -201,3 +222,4 @@ console.log(computerBoard.getBoard());
 //user place ships on left board
 placeShipsUI(humanBoard, "board-left");
 attackEnemyUI(computerBoard, "board-right");
+attackHumanUI(humanBoard, "board-left");

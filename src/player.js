@@ -26,5 +26,6 @@ export default class Player {
       coords = getRandCoords(this.enemyBoard);
     }
     this.getEnemyBoard().receiveAttack(...coords);
+    return coords;
   }
 }
