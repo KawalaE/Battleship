@@ -1,28 +1,28 @@
 import Player from "./player";
-import { displayBoard, getCube, displayShip, displayAllShips, insertFleet, placeShipsUI} from "./ui"
-
-
+import { attackEnemyUI, displayBoard, placeShipsUI, attackHumanUI } from "./ui";
+import Gameboard
+ from "./gameboard";
 const human = new Player(10);
 const computer = new Player(10);
 const computerBoard = human.getEnemyBoard();
 const humanBoard = computer.getEnemyBoard();
 
-// eslint-disable-next-line import/prefer-default-export
-export function attackEnemy() {
-  const informator = document.querySelector(".informator");
-  informator.textContent = `Attack the enemy`;
+function gamePlay() {
+  attackEnemyUI(computerBoard, "board-right");
+  attackHumanUI(humanBoard, computer, "board-left");
 }
 
-function gameLoop() {
+function gameSetUp() {
+  const informator = document.querySelector(".informator");
+  //create boards
   displayBoard(human, "board-left", "left-side");
   displayBoard(computer, "board-right", "right-side");
 
-  //place ships on enemy gameboard
+  //place ships
   computerBoard.placeEnemyShips();
-	console.log(computerBoard.getBoard());
+  placeShipsUI(humanBoard, "board-left", gamePlay);
 
-	//user place ships on left board
-  placeShipsUI(humanBoard, "board-left"); 
 }
 
-gameLoop();
+
+gameSetUp();

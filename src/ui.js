@@ -1,10 +1,4 @@
 import "./style.css";
-import Player from "./player";
-
-const human = new Player(10);
-const computer = new Player(10);
-const computerBoard = human.getEnemyBoard();
-const humanBoard = computer.getEnemyBoard();
 
 function createSections() {
   const boardsSection = document.createElement("div");
@@ -108,7 +102,15 @@ export function displayAllShips(board, boardClass) {
     );
   });
 }
-export function insertFleet(board, boardClass, cube, fleet, boardUI) {
+export function insertFleet(
+  board,
+  boardClass,
+  cube,
+  fleet,
+  boardUI,
+  startGameCall,
+) {
+  const informator = document.querySelector(".informator");
   if (board.getShipsCount() === 5) {
     // eslint-disable-next-line no-restricted-syntax
     for (const c of boardUI) {
@@ -116,7 +118,6 @@ export function insertFleet(board, boardClass, cube, fleet, boardUI) {
     }
     return;
   }
-
   const orienatation = document
     .querySelector(".rotate")
     .textContent.toLocaleLowerCase();
@@ -134,7 +135,6 @@ export function insertFleet(board, boardClass, cube, fleet, boardUI) {
       orienatation,
     )
   ) {
-    const informator = document.querySelector(".informator");
     informator.textContent = `Please place ${fleet[board.getShipsCount() + 1].name} of length ${fleet[board.getShipsCount() + 1].length}.`;
   }
 
@@ -146,8 +146,9 @@ export function insertFleet(board, boardClass, cube, fleet, boardUI) {
     orienatation,
   );
   displayAllShips(board, boardClass);
+  if (board.getShipsCount() === 5) startGameCall();
 }
-export function placeShipsUI(board, boardClass) {
+export function placeShipsUI(board, boardClass, startGameCall) {
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
   // eslint-disable-next-line no-restricted-syntax
   const shipsInfo = [
@@ -164,42 +165,67 @@ export function placeShipsUI(board, boardClass) {
     // eslint-disable-next-line no-loop-func
     cube.addEventListener(
       "click",
-      insertFleet.bind(null, board, boardClass, cube, shipsInfo, boardUI),
+      insertFleet.bind(
+        null,
+        board,
+        boardClass,
+        cube,
+        shipsInfo,
+        boardUI,
+        startGameCall,
+      ),
     );
   }
+}
+function getCubeById(boardClass, idMatch) {
+  let choosenCube;
+  const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const cube of boardUI) {
+    if (cube.id === idMatch) {
+      choosenCube = cube;
+    }
+  }
+  return choosenCube;
+}
+function setHitOrMiss(board, element, xPos, yPos) {
+  const informator = document.querySelector(".informator");
+  if (board.getTile(xPos, yPos) === "S") {
+    if (board === "humanBoard") {
+      informator.textContent = `You have been hit!`;
+    } else informator.textContent = `Enemy has been hit, well done!`;
+    element.classList.add("hit");
+  } else {
+    element.classList.add("miss");
+    if (board === "humanBoard") {
+      informator.textContent = `You have missed!`;
+    } else informator.textContent = `Enemy has missed!`;
+  }
+  element.classList.add("clicked");
+  board.receiveAttack(xPos, yPos);
 }
 function enemyAttackHandler(board, cube) {
   const currentCube = cube.id;
   const clickedX = JSON.parse(currentCube).x + 1;
   const clickedY = JSON.parse(currentCube).y + 1;
-  if (board.getTile(clickedX, clickedY) === "S") {
-    cube.classList.add("hit");
-  } else cube.classList.add("miss");
-  cube.classList.add("clicked");
-  board.receiveAttack(clickedX, clickedY);
+  setHitOrMiss(board, cube, clickedX, clickedY);
 }
-function attackHumanUI(board, boardClass) {
+export function attackHumanUI(board, computer, boardClass) {
+  const informator = document.querySelector(".informator");
+  informator.textContent = `Enemy attacks you!`;
   const coordinates = computer.playComputer();
   const attackedX = coordinates[0];
   const attackedY = coordinates[1];
-  let currentCube;
-  console.log(coordinates)
-  const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
-  // eslint-disabltricted-syntax
-  // eslint-disable-next-line no-restricted-syntax
-  for (const cube of boardUI) {
-    if (cube.id === `{"x": ${attackedX - 1}, "y": ${attackedY - 1}}`) {
-      currentCube = cube;
-    }
-  }
-  if (board.getTile(attackedX, attackedY) === "S") {
-    currentCube.classList.add("hit");
-  } else currentCube.classList.add("miss");
-  currentCube.classList.add("clicked");
-  board.receiveAttack(attackedX, attackedY);
+  const currentCube = getCubeById(
+    boardClass,
+    `{"x": ${attackedX - 1}, "y": ${attackedY - 1}}`,
+  );
+  setHitOrMiss(board, currentCube, attackedX, attackedY);
 }
 
-function attackEnemyUI(board, boardClass) {
+export function attackEnemyUI(board, boardClass) {
+  const informator = document.querySelector(".informator");
+  informator.textContent = `Attack enemy!`;
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
   // eslint-disable-next-line no-restricted-syntax
   for (const cube of boardUI) {
@@ -212,14 +238,3 @@ displayInfomator();
 createSections();
 boardTitle("human", "left-side", "Your board", "Enemy Board ->");
 boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
-displayBoard(human, "board-left", "left-side");
-displayBoard(computer, "board-right", "right-side");
-
-//place ships on enemy gameboard
-computerBoard.placeEnemyShips();
-console.log(computerBoard.getBoard());
-
-//user place ships on left board
-placeShipsUI(humanBoard, "board-left");
-attackEnemyUI(computerBoard, "board-right");
-attackHumanUI(humanBoard, "board-left");
