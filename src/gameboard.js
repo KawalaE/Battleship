@@ -46,10 +46,10 @@ export default class Gameboard {
       return false;
     }
     if (orientation === "horizontal") {
-      if (x + length > this.getSize()) {
+      if (x + length -1 > this.getSize()) {
         return false;
       }
-      for (let i = x; i < x + length; i += 1) {
+      for (let i = x; i < x + length-1; i += 1) {
         if (this.getTile(i, y) === "S") {
           return false;
         }

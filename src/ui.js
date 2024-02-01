@@ -206,7 +206,6 @@ function removeShipClass(element) {
 function setHitOrMiss(board, element, xPos, yPos) {
   const informator = document.querySelector(".informator");
   if (board.getTile(xPos, yPos) === "S") {
-    console.log(board.getTile(xPos, yPos));
     if (board.getBoardName() === "humanBoard") {
       informator.textContent = `You have been hit!`;
       removeShipClass(element);
