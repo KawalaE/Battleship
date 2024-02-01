@@ -29,6 +29,9 @@ body{
 .informator{
     font-size: 1.1rem;
     font-weight: 400;
+    width: 300px;
+    display: flex;
+    justify-content: center;
 }
 .rotate{
     cursor: pointer;
@@ -161,7 +164,9 @@ button.computer{
     background-position: center;
     background-size: 4vmin 4vmin;
 }
-
 .disable{
     pointer-events:none;
+}
+.hide{
+    display: none;
 }
