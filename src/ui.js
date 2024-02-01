@@ -188,21 +188,43 @@ function getCubeById(boardClass, idMatch) {
   }
   return choosenCube;
 }
+function removeShipClass(element) {
+  const shipClasses = [
+    "ship-middle-vertical",
+    "ship-end-vertical",
+    "ship-start-vertical",
+    "ship-middle-horizontal",
+    "ship-end-horizontal",
+    "ship-start-horizontal",
+  ];
+  shipClasses.forEach((classElement) => {
+    if (element.classList.contains(classElement)) {
+      element.classList.remove(classElement);
+    }
+  });
+}
 function setHitOrMiss(board, element, xPos, yPos) {
   const informator = document.querySelector(".informator");
   if (board.getTile(xPos, yPos) === "S") {
-    if (board === "humanBoard") {
+    console.log(board.getTile(xPos, yPos));
+    if (board.getBoardName() === "humanBoard") {
       informator.textContent = `You have been hit!`;
-    } else informator.textContent = `Enemy has been hit, well done!`;
+      removeShipClass(element);
+    } else if (board.getBoardName() === "computerBoard") {
+      informator.textContent = `Enemy has been hit, well done!`;
+    }
     element.classList.add("hit");
   } else {
-    element.classList.add("miss");
-    if (board === "humanBoard") {
+    if (board.getBoardName() === "humanBoard") {
+      informator.textContent = `Enemy has missed!`;
+    } else {
       informator.textContent = `You have missed!`;
-    } else informator.textContent = `Enemy has missed!`;
+    }
+    element.classList.add("miss");
   }
   element.classList.add("clicked");
   board.receiveAttack(xPos, yPos);
+  board.setTile(xPos, yPos, "X");
 }
 function enemyAttackHandler(board, cube) {
   const currentCube = cube.id;
@@ -230,7 +252,7 @@ export function attackEnemyUI(board, boardClass) {
   // eslint-disable-next-line no-restricted-syntax
   for (const cube of boardUI) {
     // eslint-disable-next-line no-loop-func
-    cube.addEventListener("click", enemyAttackHandler.bind(null, board, cube));
+    cube.addEventListener("click", () => enemyAttackHandler(board, cube));
   }
 }
 

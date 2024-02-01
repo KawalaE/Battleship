@@ -161,3 +161,7 @@ button.computer{
     background-position: center;
     background-size: 4vmin 4vmin;
 }
+
+.disable{
+    pointer-events:none;
+}

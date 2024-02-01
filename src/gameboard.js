@@ -2,10 +2,15 @@ import Ship from "./ship";
 import { getRandCoords, getRandomInt } from "./helper";
 
 export default class Gameboard {
-  constructor(size) {
+  constructor(name, size) {
+    this.name = name;
     this.size = size;
     this.tiles = Array.from({ length: size }, () => new Array(size).fill(" "));
     this.ships = [];
+  }
+
+  getBoardName() {
+    return this.name;
   }
 
   getBoard() {
@@ -106,7 +111,6 @@ export default class Gameboard {
         }
       });
     }
-    this.setTile(x, y, "X");
   }
 
   allShipsSunk() {
