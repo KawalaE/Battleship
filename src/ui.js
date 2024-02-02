@@ -227,6 +227,7 @@ function setHitOrMiss(board, element, xPos, yPos) {
   }
   board.setTile(xPos, yPos, "X");
 }
+
 function enemyAttackHandler(board, cube) {
   const currentCube = cube.id;
   const clickedX = JSON.parse(currentCube).x + 1;
@@ -252,8 +253,8 @@ export function attackEnemyUI(board, boardClass) {
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
   // eslint-disable-next-line no-restricted-syntax
   for (const cube of boardUI) {
-    // eslint-disable-next-line no-loop-func
-    cube.addEventListener("click", () => enemyAttackHandler(board, cube));
+  // eslint-disable-next-line no-loop-func
+  cube.addEventListener("click", () => enemyAttackHandler(board, cube));
   }
 }
 export function playAgain() {

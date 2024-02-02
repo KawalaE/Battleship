@@ -1,6 +1,6 @@
 import Ship from "./ship";
 import { getRandCoords, getRandomInt } from "./helper";
-
+import { winnerCheck } from "./gamelogic";
 export default class Gameboard {
   constructor(name, size) {
     this.name = name;

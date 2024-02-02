@@ -12,10 +12,8 @@ function disableBoards() {
   document.querySelector(".board-left").classList.add("disable");
   document.querySelector(".board-right").classList.add("disable");
 }
+// eslint-disable-next-line import/prefer-default-export
 function winnerCheck() {
-  if (computerBoard.allShipsSunk() || humanBoard.allShipsSunk()) {
-    playAgain();
-  }
   if (humanBoard.allShipsSunk()) {
     disableBoards();
     informator.textContent = "Computer won!";
@@ -37,11 +35,10 @@ function gamePlay() {
     cube.addEventListener("click", () => {
       cube.classList.add("disable");
       if (!winnerCheck()) {
-        setTimeout(
-          () => attackHumanUI(humanBoard, computer, "board-left"),
-          1000,
-        );
-        winnerCheck();
+        setTimeout(() => {
+          attackHumanUI(humanBoard, computer, "board-left");
+          winnerCheck();
+        }, 1000);
       }
     });
   }
