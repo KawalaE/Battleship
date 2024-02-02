@@ -37,9 +37,9 @@ function gamePlay() {
       if (!winnerCheck()) {
         setTimeout(() => {
           attackHumanUI(humanBoard, computer, "board-left");
-          winnerCheck();
+          if (winnerCheck()) playAgain();
         }, 1000);
-      }
+      } else playAgain();
     });
   }
 }
