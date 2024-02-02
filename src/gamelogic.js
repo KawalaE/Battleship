@@ -35,6 +35,7 @@ function gamePlay() {
   // eslint-disable-next-line no-restricted-syntax
   for (const cube of boardUI) {
     cube.addEventListener("click", () => {
+      cube.classList.add("disable");
       if (!winnerCheck()) {
         setTimeout(
           () => attackHumanUI(humanBoard, computer, "board-left"),
