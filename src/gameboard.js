@@ -1,6 +1,6 @@
 import Ship from "./ship";
 import { getRandCoords, getRandomInt } from "./helper";
-import { winnerCheck } from "./gamelogic";
+
 export default class Gameboard {
   constructor(name, size) {
     this.name = name;
@@ -58,7 +58,7 @@ export default class Gameboard {
       if (y + length - 1 > this.getSize()) {
         return false;
       }
-      for (let i = y; i < y + length; i += 1) {
+      for (let i = y; i < y + length - 1; i += 1) {
         if (this.getTile(x, i) === "S") {
           return false;
         }
@@ -102,7 +102,7 @@ export default class Gameboard {
           ) {
             ship.hit();
           }
-        } else if (ship.getOrientation() === "vertical"){
+        } else if (ship.getOrientation() === "vertical") {
           if (
             ship.getXPos() === x &&
             ship.getYPos() <= y &&
@@ -125,7 +125,7 @@ export default class Gameboard {
     return sunkCount === this.getShipsCount();
   }
 
-  placeEnemyShips() {
+  placeRandomShips() {
     let randomCoords = getRandCoords(this);
     const directions = ["horizontal", "vertical"];
     let randomDirection = getRandomInt(2);

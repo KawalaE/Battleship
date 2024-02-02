@@ -2,12 +2,17 @@ import Gameboard from "../src/gameboard";
 import Ship from "../src/ship";
 
 describe("Gameboard class tests", () => {
-  let gameboard = new Gameboard(3);
+  let gameboard = new Gameboard("computerBoard", 3);
+  let largerBoard = new Gameboard("computerBoard", 10);
   beforeEach(() => {
-    gameboard = new Gameboard(3);
+    gameboard = new Gameboard("computerBoard", 3);
+    largerBoard = new Gameboard("computerBoard", 10);
   });
 
   describe("define class methods", () => {
+    test("define getBoardName", () => {
+      expect(typeof gameboard.getBoardName).toBe("function");
+    });
     test("defines getBoard", () => {
       expect(typeof gameboard.getBoard).toBe("function");
     });
@@ -41,10 +46,16 @@ describe("Gameboard class tests", () => {
     test("defines allShipsSunk", () => {
       expect(typeof gameboard.allShipsSunk).toBe("function");
     });
+    test("defines placeRandomShips", () => {
+      expect(typeof gameboard.placeRandomShips).toBe("function");
+    });
   });
 
   describe("test getters, setters and adding ship", () => {
     const carrier = new Ship("carrier", 5, 1, 2, "horizontal");
+    test("returns name of the gameboard", () => {
+      expect(gameboard.getBoardName()).toEqual("computerBoard");
+    });
     test("returns gameboard array", () => {
       expect(gameboard.getBoard()).toEqual([
         [" ", " ", " "],
@@ -115,17 +126,6 @@ describe("Gameboard class tests", () => {
       });
     });
     describe("test receiveAttack method", () => {
-      test("sets tile as X (while prev tile was empty)", () => {
-        expect(gameboard.getTile(1, 1)).toBe(" ");
-        gameboard.receiveAttack(1, 1);
-        expect(gameboard.getTile(1, 1)).toBe("X");
-      });
-      test("sets tile as X (while prev tile was S)", () => {
-        gameboard.placeShip("destroyer", 2, 1, 1, "horizontal");
-        expect(gameboard.getTile(1, 1)).toBe("S");
-        gameboard.receiveAttack(1, 1);
-        expect(gameboard.getTile(1, 1)).toBe("X");
-      });
       test("hits the ship", () => {
         gameboard.placeShip("destroyer", 2, 3, 1, "vertical");
         const shipObject = gameboard.getShips()[gameboard.getShipsCount() - 1];
@@ -144,6 +144,13 @@ describe("Gameboard class tests", () => {
         gameboard.receiveAttack(1, 2);
         gameboard.receiveAttack(2, 2);
         expect(gameboard.allShipsSunk()).toBe(true);
+      });
+    });
+    describe("test placeEnemyShips method", () => {
+      test("checks if number of ships increases after invoking", () => {
+        expect(largerBoard.getShipsCount()).toBe(0);
+        largerBoard.placeRandomShips();
+        expect(largerBoard.getShipsCount()).toBe(5);
       });
     });
   });

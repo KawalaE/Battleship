@@ -47,7 +47,7 @@ function gamePlay() {
 function gameSetUp() {
   displayBoard(human, "board-left", "left-side");
   displayBoard(computer, "board-right", "right-side");
-  computerBoard.placeEnemyShips();
+  computerBoard.placeRandomShips();
   placeShipsUI(humanBoard, "board-left", gamePlay);
 }
 
