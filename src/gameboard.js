@@ -46,10 +46,10 @@ export default class Gameboard {
       return false;
     }
     if (orientation === "horizontal") {
-      if (x + length -1 > this.getSize()) {
+      if (x + length - 1 > this.getSize()) {
         return false;
       }
-      for (let i = x; i < x + length-1; i += 1) {
+      for (let i = x; i < x + length - 1; i += 1) {
         if (this.getTile(i, y) === "S") {
           return false;
         }
@@ -102,12 +102,14 @@ export default class Gameboard {
           ) {
             ship.hit();
           }
-        } else if (
-          ship.getXPos() === x &&
-          ship.getYPos() <= y &&
-          ship.getYPos() + ship.getLength() - 1 >= y
-        ) {
-          ship.hit();
+        } else if (ship.getOrientation() === "vertical"){
+          if (
+            ship.getXPos() === x &&
+            ship.getYPos() <= y &&
+            ship.getYPos() + ship.getLength() - 1 >= y
+          ) {
+            ship.hit();
+          }
         }
       });
     }

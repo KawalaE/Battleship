@@ -222,7 +222,9 @@ function setHitOrMiss(board, element, xPos, yPos) {
     element.classList.add("miss");
   }
   element.classList.add("clicked");
-  board.receiveAttack(xPos, yPos);
+  if (board.getBoardName() === "computerBoard") {
+    board.receiveAttack(xPos, yPos);
+  }
   board.setTile(xPos, yPos, "X");
 }
 function enemyAttackHandler(board, cube) {
@@ -254,7 +256,18 @@ export function attackEnemyUI(board, boardClass) {
     cube.addEventListener("click", () => enemyAttackHandler(board, cube));
   }
 }
+export function playAgain() {
+  const gameInfo = document.querySelector(".game-info");
+  const replayBtn = document.createElement("button");
+  replayBtn.classList.add("replay");
+  replayBtn.classList.add("rotate");
+  replayBtn.textContent = "Play again!";
+  gameInfo.appendChild(replayBtn);
 
+  replayBtn.addEventListener("click", () => {
+    window.location.reload();
+  });
+}
 displayInfomator();
 createSections();
 boardTitle("human", "left-side", "Your board", "Enemy Board ->");
