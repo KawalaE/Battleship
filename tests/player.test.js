@@ -24,44 +24,45 @@ describe("Player class tests", () => {
       expect(typeof player.playComputer).toBe("function");
     });
   });
-  describe("test getEnemyBoard", () => {
+  describe("test class getters", () => {
+    test("get the enemy name", () => {
+      expect(player.getEnemyName()).toBe("opponent");
+    });
     test("get the enemy board -> as object", () => {
       const returnValue = player.getEnemyBoard();
       expect(returnValue).toBeInstanceOf(Object);
     });
-    describe("test getEnemyTiles", () => {
-      test("get the enemy board -> as tiles", () => {
-        expect(player.getEnemyTiles()).toEqual([
-          [" ", " ", " "],
-          [" ", " ", " "],
-          [" ", " ", " "],
-        ]);
-      });
+    test("get the enemy board -> as tiles", () => {
+      expect(player.getEnemyTiles()).toEqual([
+        [" ", " ", " "],
+        [" ", " ", " "],
+        [" ", " ", " "],
+      ]);
     });
-    describe("test play method", () => {
-      test("mark as X coordinates given as a parameter", () => {
-        player.play(2, 2);
-        expect(player.getEnemyTiles()).toEqual([
-          [" ", " ", " "],
-          [" ", "X", " "],
-          [" ", " ", " "],
-        ]);
-      });
+  });
+  describe("test play method", () => {
+    test("mark as X coordinates given as a parameter", () => {
+      player.play(2, 2);
+      expect(player.getEnemyTiles()).toEqual([
+        [" ", " ", " "],
+        [" ", "X", " "],
+        [" ", " ", " "],
+      ]);
     });
-    describe("test playComputer method", () => {
-      test("mark as X randomly selected coordinates", () => {
-        player.playComputer();
-        let shoots = 0;
-        const board = player.getEnemyTiles();
-        board.forEach((row) => {
-          row.forEach((tile) => {
-            if (tile === "X") {
-              shoots += 1;
-            }
-          });
+  });
+  describe("test playComputer method", () => {
+    test("mark as X randomly selected coordinates", () => {
+      player.playComputer();
+      let shoots = 0;
+      const board = player.getEnemyTiles();
+      board.forEach((row) => {
+        row.forEach((tile) => {
+          if (tile === "X") {
+            shoots += 1;
+          }
         });
-        expect(shoots).toBe(1);
       });
+      expect(shoots).toBe(1);
     });
   });
 });

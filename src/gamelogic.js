@@ -1,14 +1,17 @@
 import Player from "./player";
-import { attackEnemyUI, displayBoard, placeShipsUI, attackHumanUI, playAgain, createFooter} from "./ui";
+import {
+  attackEnemyUI,
+  displayBoard,
+  placeShipsUI,
+  attackHumanUI,
+  playAgain,
+  createFooter,
+} from "./ui";
 
 const human = new Player("computer", 10);
 const computer = new Player("human", 10);
 const computerBoard = human.getEnemyBoard();
 const humanBoard = computer.getEnemyBoard();
-console.log(human);
-console.log(computer);
-console.log(computerBoard);
-console.log(humanBoard);
 
 const informator = document.querySelector(".informator");
 
@@ -19,17 +22,20 @@ function disableBoards() {
 // eslint-disable-next-line import/prefer-default-export
 function winnerCheck() {
   if (humanBoard.allShipsSunk()) {
-    disableBoards();
     informator.textContent = "Computer won!";
+    disableBoards();
+    playAgain();
     return true;
   }
   if (computerBoard.allShipsSunk()) {
-    disableBoards();
     informator.textContent = "You are the winner!";
+    disableBoards();
+    playAgain();
     return true;
   }
   return false;
 }
+
 function gamePlay() {
   document.querySelector(".rotate").classList.add("hide");
   attackEnemyUI(computerBoard, "board-right");
@@ -37,13 +43,13 @@ function gamePlay() {
   // eslint-disable-next-line no-restricted-syntax
   for (const cube of boardUI) {
     cube.addEventListener("click", () => {
-      cube.classList.add("disable");
       if (!winnerCheck()) {
+        cube.classList.add("disable");
         setTimeout(() => {
           attackHumanUI(humanBoard, computer, "board-left");
-          if (winnerCheck()) playAgain();
-        }, 1000);
-      } else playAgain();
+          winnerCheck();
+        }, 500);
+      }
     });
   }
 }

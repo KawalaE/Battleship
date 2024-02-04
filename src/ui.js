@@ -110,7 +110,6 @@ export function insertFleet(
   boardUI,
   startGameCall,
 ) {
-  console.log(board.getBoard())
   const informator = document.querySelector(".informator");
   if (board.getShipsCount() === 5) {
     // eslint-disable-next-line no-restricted-syntax
@@ -205,7 +204,6 @@ function removeShipClass(element) {
   });
 }
 function setHitOrMiss(board, element, xPos, yPos) {
-  console.log(board.getBoardName())
   const informator = document.querySelector(".informator");
   if (board.getTile(xPos, yPos) === "S") {
     if (board.getBoardName() === "humanBoard") {
