@@ -1,14 +1,9 @@
 import "./style.css";
-import Ship from "./assets/ship.svg";
-import GithubIcon from "./assets/github-mark.svg";
 
 function createFavicon() {
-  const shipIcon = new Image();
-  shipIcon.src = Ship;
   const head = document.querySelector("head");
   const favicon = document.createElement("link");
-  favicon.setAttribute("rel", "shortcut icon");
-  favicon.setAttribute("href", shipIcon.src);
+  favicon.classList.add('.favicon');
   head.append(favicon);
 }
 
@@ -209,6 +204,7 @@ function removeShipClass(element) {
   });
 }
 function setHitOrMiss(board, element, xPos, yPos) {
+  console.log(board.getBoardName())
   const informator = document.querySelector(".informator");
   if (board.getTile(xPos, yPos) === "S") {
     if (board.getBoardName() === "humanBoard") {
@@ -275,16 +271,13 @@ export function playAgain() {
   });
 }
 export function createFooter() {
-  const githubIcon = new Image();
-  githubIcon.src = GithubIcon;
-
   const footer = document.createElement("div");
   footer.classList.add("footer");
   const name = document.createElement("p");
   name.classList.add("footer-name");
   name.textContent = "KawalaE";
   const icon = document.createElement("img");
-  icon.src = githubIcon.src;
+  icon.classList.add("icon");
   footer.append(name, icon);
   document.body.appendChild(footer);
 

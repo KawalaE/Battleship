@@ -4,7 +4,7 @@ import { getRandCoords } from "./helper";
 export default class Player {
   constructor(enemyName, size) {
     this.enemyName = enemyName;
-    this.enemyBoard = new Gameboard(`${this.name}Board`, size);
+    this.enemyBoard = new Gameboard(`${this.enemyName}Board`, size);
   }
 
   getEnemyName() {

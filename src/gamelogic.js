@@ -5,6 +5,10 @@ const human = new Player("computer", 10);
 const computer = new Player("human", 10);
 const computerBoard = human.getEnemyBoard();
 const humanBoard = computer.getEnemyBoard();
+console.log(human);
+console.log(computer);
+console.log(computerBoard);
+console.log(humanBoard);
 
 const informator = document.querySelector(".informator");
 
