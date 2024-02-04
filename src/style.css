@@ -226,9 +226,6 @@ button.computer{
     .miss{
         background-size: 7px 7px;
     }
-    .cube{
-        box-shadow: 1.5px 1.5px 0px 0px #000;
-    }
     .title-sec{
         width: 400px;
     }
@@ -253,9 +250,6 @@ button.computer{
     }
     .miss{
         background-size: 7px 7px;
-    }
-    .cube{
-        box-shadow: 1px 1px 0px 0px #000;
     }
     .title-sec{
         width: 350px;

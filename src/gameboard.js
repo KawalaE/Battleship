@@ -49,7 +49,7 @@ export default class Gameboard {
       if (x + length - 1 > this.getSize()) {
         return false;
       }
-      for (let i = x; i < x + length - 1; i += 1) {
+      for (let i = x; i <= x + length - 1; i += 1) {
         if (this.getTile(i, y) === "S") {
           return false;
         }
@@ -58,7 +58,7 @@ export default class Gameboard {
       if (y + length - 1 > this.getSize()) {
         return false;
       }
-      for (let i = y; i < y + length - 1; i += 1) {
+      for (let i = y; i <= y + length - 1; i += 1) {
         if (this.getTile(x, i) === "S") {
           return false;
         }
