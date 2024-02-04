@@ -2,13 +2,13 @@ import Gameboard from "./gameboard";
 import { getRandCoords } from "./helper";
 
 export default class Player {
-  constructor(name, size) {
-    this.name = name;
+  constructor(enemyName, size) {
+    this.enemyName = enemyName;
     this.enemyBoard = new Gameboard(`${this.name}Board`, size);
   }
 
-  getPlayerName() {
-    return this.name;
+  getEnemyName() {
+    return this.enemyName;
   }
 
   getEnemyBoard() {

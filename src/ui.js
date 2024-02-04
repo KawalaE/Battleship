@@ -11,20 +11,13 @@ function createSections() {
   rightSide.classList.add("right-side");
   boardsSection.appendChild(rightSide);
 }
-function boardTitle(player, sideClass, text, btnText) {
+function boardTitle(player, sideClass, text) {
   const titleSection = document.createElement("div");
   titleSection.classList.add("title-sec");
   document.querySelector(`.${sideClass}`).appendChild(titleSection);
   const boardOwner = document.createElement("h1");
   boardOwner.textContent = `${text}`;
-  const enemyBoardPointer = document.createElement("button");
-  enemyBoardPointer.classList.add(`${player}`);
-  if (player === "computer") {
-    titleSection.classList.add("computer");
-  }
-  enemyBoardPointer.textContent = `${btnText}`;
   titleSection.appendChild(boardOwner);
-  titleSection.appendChild(enemyBoardPointer);
 }
 function displayInfomator() {
   const gameInfo = document.createElement("div");
@@ -271,5 +264,6 @@ export function playAgain() {
 }
 displayInfomator();
 createSections();
-boardTitle("human", "left-side", "Your board", "Enemy Board ->");
-boardTitle("computer", "right-side", "Enemy Board", "<- Your Board");
+boardTitle("human", "left-side", "Your board");
+boardTitle("computer", "right-side", "Enemy Board");
+

@@ -14,10 +14,10 @@
 body{
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
     background-color: #fff4e9;
     display: flex;
     flex-direction: column;
+    gap: 30px;
 }
 .game-info{
     display: flex;
@@ -28,7 +28,7 @@ body{
 }
 .informator{
     font-size: 1.1rem;
-    font-weight: 400;
+    font-weight: 500;
     width: 300px;
     display: flex;
     justify-content: center;
@@ -40,7 +40,6 @@ body{
 }
 .boards{
     width: 100%;
-    height: 60vh;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -56,8 +55,8 @@ body{
 .board-left, .board-right{
     margin: 2vmin;
     display: grid;
-    grid-template-columns: repeat(10, 4.6vmin);
-    grid-template-rows: repeat(10, 4.6vmin);
+    grid-template-columns: repeat(10, 45px);
+    grid-template-rows: repeat(10, 45px);
     background-color: #699BF7;
     border: 1.5vmin solid #699BF7;
     border-radius: 5%;
@@ -69,7 +68,7 @@ body{
 }
 .title-sec{
     display: flex;
-    width: 46vmin;
+    width: 450px;
     justify-content: space-between;
 }
 .title-sec.computer{
@@ -130,19 +129,19 @@ button.computer{
     background-image:url('assets/Boat-Start-Horizontal.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 3.6vmin 3.6vmin
+    background-size: 36px 36px;
 }
 .ship-end-horizontal{
     background-image:url('assets/Boat-End-Horizontal.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 3.6vmin 3.6vmin
+    background-size: 36px 36px;
 }
 .ship-middle-horizontal{
     background-image:url('assets/Boat-Middle-Horizontal.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 4vmin 4vmin
+    background-size: 40px 40px;
 
 }
 /*vertical*/
@@ -150,23 +149,82 @@ button.computer{
     background-image:url('assets/Boat-Start-Vertical.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 3.6vmin 3.6vmin
+    background-size: 36px 36px;
 }
 .ship-end-vertical{
     background-image:url('assets/Boat-End-Vertical.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 3.6vmin 3.6vmin
+    background-size: 36px 36px;
 }
 .ship-middle-vertical{
     background-image:url('assets/Boat-Middle-Vertical.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 4vmin 4vmin;
+    background-size: 40px 40px;
 }
 .disable{
     pointer-events:none;
 }
 .hide{
     display: none;
+}
+
+@media (max-width: 1000px){
+    .boards{
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .board-left, .board-right{
+        grid-template-columns: repeat(10, 40px);
+        grid-template-rows: repeat(10, 40px);
+    }
+    .ship-start-horizontal, .ship-end-horizontal, .ship-start-vertical, .ship-end-vertical{
+        background-size: 31px 31px;
+    }
+    .ship-middle-vertical, .ship-middle-horizontal{
+        background-size: 35px 35px;
+    }
+    .hit{
+        background-size:15px 15px;
+    }
+    .miss{
+        background-size: 7px 7px;
+    }
+    .cube{
+        box-shadow: 1.5px 1.5px 0px 0px #000;
+    }
+    .title-sec{
+        width: 400px;
+    }
+    .game-info{
+        flex-direction: column;
+    }
+    
+}
+@media (max-width: 500px){
+    .board-left, .board-right{
+        grid-template-columns: repeat(10, 35px);
+        grid-template-rows: repeat(10, 35px);
+    }
+    .ship-start-horizontal, .ship-end-horizontal, .ship-start-vertical, .ship-end-vertical{
+        background-size: 26px 26px;
+    }
+    .ship-middle-vertical, .ship-middle-horizontal{
+        background-size: 30px 30px;
+    }
+    .hit{
+        background-size: 15px 15px;
+    }
+    .miss{
+        background-size: 7px 7px;
+    }
+    .cube{
+        box-shadow: 1px 1px 0px 0px #000;
+    }
+    .title-sec{
+        width: 350px;
+    }
+
 }

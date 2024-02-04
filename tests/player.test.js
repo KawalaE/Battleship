@@ -1,13 +1,16 @@
 import Player from "../src/player";
 
 describe("Player class tests", () => {
-  let player = new Player(3);
+  let player = new Player("opponent", 3);
 
   beforeEach(() => {
-    player = new Player(3);
+    player = new Player("opponent", 3);
   });
 
   describe("define class methods", () => {
+    test("define getPlayerName method", () => {
+      expect(typeof player.getEnemyName).toBe("function");
+    });
     test("define getEnemyBoard method", () => {
       expect(typeof player.getEnemyBoard).toBe("function");
     });
