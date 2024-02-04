@@ -26,6 +26,14 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf|mp3)$/i,
         type: "asset/resource",
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
+      },
     ],
   },
 };

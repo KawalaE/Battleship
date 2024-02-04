@@ -1,4 +1,15 @@
 import "./style.css";
+import Ship from "./assets/ship.svg";
+
+function createFavicon() {
+  const shipIcon = new Image();
+  shipIcon.src = Ship;
+  const head = document.querySelector("head");
+  const favicon = document.createElement("link");
+  favicon.setAttribute("rel", "shortcut icon");
+  favicon.setAttribute("href", shipIcon.src);
+  head.append(favicon);
+}
 
 function createSections() {
   const boardsSection = document.createElement("div");
@@ -262,8 +273,8 @@ export function playAgain() {
     window.location.reload();
   });
 }
+createFavicon();
 displayInfomator();
 createSections();
 boardTitle("human", "left-side", "Your board");
 boardTitle("computer", "right-side", "Enemy Board");
-
