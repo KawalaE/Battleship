@@ -169,6 +169,27 @@ button.computer{
 .hide{
     display: none;
 }
+.footer-name{
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+  }
+.footer img{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition:.5s ease-in-out;
+}
+.footer img:hover{
+   transform: rotate(360deg) scale(1.1);
+}
+.footer{
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top:auto;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
 @media (max-width: 1000px){
     .boards{

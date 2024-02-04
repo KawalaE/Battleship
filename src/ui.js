@@ -1,5 +1,6 @@
 import "./style.css";
 import Ship from "./assets/ship.svg";
+import GithubIcon from "./assets/github-mark.svg";
 
 function createFavicon() {
   const shipIcon = new Image();
@@ -271,6 +272,24 @@ export function playAgain() {
 
   replayBtn.addEventListener("click", () => {
     window.location.reload();
+  });
+}
+export function createFooter() {
+  const githubIcon = new Image();
+  githubIcon.src = GithubIcon;
+
+  const footer = document.createElement("div");
+  footer.classList.add("footer");
+  const name = document.createElement("p");
+  name.classList.add("footer-name");
+  name.textContent = "KawalaE";
+  const icon = document.createElement("img");
+  icon.src = githubIcon.src;
+  footer.append(name, icon);
+  document.body.appendChild(footer);
+
+  icon.addEventListener("click", () => {
+    window.location = "https://github.com/KawalaE/Battleship";
   });
 }
 createFavicon();

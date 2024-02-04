@@ -1,5 +1,5 @@
 import Player from "./player";
-import { attackEnemyUI, displayBoard, placeShipsUI, attackHumanUI, playAgain} from "./ui";
+import { attackEnemyUI, displayBoard, placeShipsUI, attackHumanUI, playAgain, createFooter} from "./ui";
 
 const human = new Player("computer", 10);
 const computer = new Player("human", 10);
@@ -47,6 +47,7 @@ function gamePlay() {
 function gameSetUp() {
   displayBoard(human, "board-left", "left-side");
   displayBoard(computer, "board-right", "right-side");
+  createFooter();
   computerBoard.placeRandomShips();
   placeShipsUI(humanBoard, "board-left", gamePlay);
 }
