@@ -164,7 +164,7 @@ button.computer{
     background-size: 40px 40px;
 }
 .disable{
-    pointer-events:none;
+    pointer-events: none;
 }
 .hide{
     display: none;

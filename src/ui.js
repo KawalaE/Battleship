@@ -146,7 +146,10 @@ export function insertFleet(
     orienatation,
   );
   displayAllShips(board, boardClass);
-  if (board.getShipsCount() === 5) startGameCall();
+  if (board.getShipsCount() === 5) {
+    document.querySelector(".board-left").classList.add("disable");
+    startGameCall();
+  }
 }
 export function placeShipsUI(board, boardClass, startGameCall) {
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
