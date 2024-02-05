@@ -3,7 +3,7 @@ import "./style.css";
 function createFavicon() {
   const head = document.querySelector("head");
   const favicon = document.createElement("link");
-  favicon.classList.add('.favicon');
+  favicon.classList.add("favicon");
   head.append(favicon);
 }
 

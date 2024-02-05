@@ -1,10 +1,15 @@
 import Player from "../src/player";
+import * as helper from "../src/helper";
 
 describe("Player class tests", () => {
   let player = new Player("opponent", 3);
+  let enemyBoard = player.getEnemyBoard();
+  let mockRecieveAttack = jest.spyOn(enemyBoard, "receiveAttack");
 
   beforeEach(() => {
     player = new Player("opponent", 3);
+    enemyBoard = player.getEnemyBoard();
+    mockRecieveAttack = jest.spyOn(enemyBoard, "receiveAttack");
   });
 
   describe("define class methods", () => {
@@ -40,29 +45,39 @@ describe("Player class tests", () => {
       ]);
     });
   });
-  describe("test play method", () => {
-    test("mark as X coordinates given as a parameter", () => {
-      player.play(2, 2);
-      expect(player.getEnemyTiles()).toEqual([
-        [" ", " ", " "],
-        [" ", "X", " "],
-        [" ", " ", " "],
-      ]);
-    });
-  });
-  describe("test playComputer method", () => {
-    test("mark as X randomly selected coordinates", () => {
-      player.playComputer();
-      let shoots = 0;
-      const board = player.getEnemyTiles();
-      board.forEach((row) => {
-        row.forEach((tile) => {
-          if (tile === "X") {
-            shoots += 1;
-          }
-        });
+  describe("test class methods", () => {
+    describe("test play method", () => {
+      test("invokes receiveAttack if place was not attacked yet", () => {
+        player.play(1, 1);
+        expect(mockRecieveAttack).toHaveBeenCalled();
       });
-      expect(shoots).toBe(1);
+      test("does not invoke receiveAttack when place was already attacked", () => {
+        enemyBoard.setTile(2, 2, "X");
+        player.play(2, 2);
+        expect(mockRecieveAttack).not.toHaveBeenCalled();
+      });
+    });
+    describe("test playComputer method", () => {
+      test("invokes getRandCoords function", () => {
+        const getRandCoordsMock = jest.spyOn(helper, "getRandCoords");
+        player.playComputer();
+        expect(getRandCoordsMock).toHaveBeenCalled();
+      });
+      test("invokes receiveAttack", () => {
+        player.playComputer();
+        expect(mockRecieveAttack).toHaveBeenCalled();
+      });
+      test("returns an array data structure", () => {
+        const returnValue = player.playComputer();
+        expect(returnValue).toBeInstanceOf(Array);
+      });
+      test("cooridinates are in range of 1 - board size", () => {
+        const returnValue = player.playComputer();
+        expect(returnValue[0]).toBeLessThanOrEqual(3);
+        expect(returnValue[1]).toBeLessThanOrEqual(3);
+        expect(returnValue[0]).toBeGreaterThanOrEqual(1);
+        expect(returnValue[1]).toBeGreaterThanOrEqual(1);
+      });
     });
   });
 });
