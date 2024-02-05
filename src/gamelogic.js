@@ -19,7 +19,7 @@ function disableBoards() {
   document.querySelector(".board-left").classList.add("disable");
   document.querySelector(".board-right").classList.add("disable");
 }
-// eslint-disable-next-line import/prefer-default-export
+
 function winnerCheck() {
   if (humanBoard.allShipsSunk()) {
     informator.textContent = "Computer won!";
@@ -40,18 +40,19 @@ function gamePlay() {
   document.querySelector(".rotate").classList.add("hide");
   attackEnemyUI(computerBoard, "board-right");
   const boardUI = document.getElementsByClassName("board-right")[0].children;
-  // eslint-disable-next-line no-restricted-syntax
-  for (const cube of boardUI) {
+  [...boardUI].forEach((cube) => {
     cube.addEventListener("click", () => {
       if (!winnerCheck()) {
         cube.classList.add("disable");
+        document.querySelector(".board-right").classList.add("disable");
         setTimeout(() => {
           attackHumanUI(humanBoard, computer, "board-left");
           winnerCheck();
+          document.querySelector(".board-right").classList.remove("disable");
         }, 500);
       }
     });
-  }
+  });
 }
 
 function gameSetUp() {

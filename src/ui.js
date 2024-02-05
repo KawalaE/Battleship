@@ -61,12 +61,11 @@ export function displayBoard(player, className, sideClass) {
 export function getCube(boardClass, idInfo) {
   const board = document.getElementsByClassName(`${boardClass}`)[0].children;
   let cube;
-  // eslint-disable-next-line no-restricted-syntax
-  for (const currCube of board) {
-    if (currCube.id === idInfo) {
-      cube = currCube;
+  [...board].forEach((currentCube) => {
+    if (currentCube.id === idInfo) {
+      cube = currentCube;
     }
-  }
+  });
   return cube;
 }
 export function displayShip(length, x, y, orientation, boardClass) {
@@ -112,10 +111,9 @@ export function insertFleet(
 ) {
   const informator = document.querySelector(".informator");
   if (board.getShipsCount() === 5) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const c of boardUI) {
-      c.removeEventListener("click", insertFleet);
-    }
+    [...boardUI].forEach((element) => {
+      element.removeEventListener("click", insertFleet);
+    });
     return;
   }
   const orienatation = document
@@ -153,7 +151,6 @@ export function insertFleet(
 }
 export function placeShipsUI(board, boardClass, startGameCall) {
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
-  // eslint-disable-next-line no-restricted-syntax
   const shipsInfo = [
     { name: "carrier", length: 5 },
     { name: "battleship", length: 4 },
@@ -163,9 +160,7 @@ export function placeShipsUI(board, boardClass, startGameCall) {
   ];
   const informator = document.querySelector(".informator");
   informator.textContent = `Please place ${shipsInfo[0].name} of length ${shipsInfo[0].length}.`;
-  // eslint-disable-next-line no-restricted-syntax
-  for (const cube of boardUI) {
-    // eslint-disable-next-line no-loop-func
+  [...boardUI].forEach((cube) => {
     cube.addEventListener(
       "click",
       insertFleet.bind(
@@ -178,7 +173,7 @@ export function placeShipsUI(board, boardClass, startGameCall) {
         startGameCall,
       ),
     );
-  }
+  });
 }
 function getCubeById(boardClass, idMatch) {
   let choosenCube;
@@ -211,6 +206,7 @@ function setHitOrMiss(board, element, xPos, yPos) {
   if (board.getTile(xPos, yPos) === "S") {
     if (board.getBoardName() === "humanBoard") {
       informator.textContent = `You have been hit!`;
+      element.classList.add("theImageJittery");
       removeShipClass(element);
     } else if (board.getBoardName() === "computerBoard") {
       informator.textContent = `Enemy has been hit, well done!`;
@@ -219,6 +215,7 @@ function setHitOrMiss(board, element, xPos, yPos) {
   } else {
     if (board.getBoardName() === "humanBoard") {
       informator.textContent = `Enemy has missed!`;
+      element.classList.add("theImageJittery");
     } else {
       informator.textContent = `You have missed!`;
     }
@@ -254,11 +251,9 @@ export function attackEnemyUI(board, boardClass) {
   const informator = document.querySelector(".informator");
   informator.textContent = `Attack enemy!`;
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
-  // eslint-disable-next-line no-restricted-syntax
-  for (const cube of boardUI) {
-  // eslint-disable-next-line no-loop-func
-  cube.addEventListener("click", () => enemyAttackHandler(board, cube));
-  }
+  [...boardUI].forEach((cube) => {
+    cube.addEventListener("click", () => enemyAttackHandler(board, cube));
+  });
 }
 export function playAgain() {
   const gameInfo = document.querySelector(".game-info");
