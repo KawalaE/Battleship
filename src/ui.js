@@ -18,6 +18,7 @@ function createSections() {
   rightSide.classList.add("right-side");
   boardsSection.appendChild(rightSide);
 }
+
 function boardTitle(player, sideClass, text) {
   const titleSection = document.createElement("div");
   titleSection.classList.add("title-sec");
@@ -209,12 +210,12 @@ function setHitOrMiss(board, element, xPos, yPos) {
       element.classList.add("theImageJittery");
       removeShipClass(element);
     } else if (board.getBoardName() === "computerBoard") {
-      informator.textContent = `Enemy has been hit, well done!`;
+      informator.textContent = `The enemy has been hit, well done!`;
     }
     element.classList.add("hit");
   } else {
     if (board.getBoardName() === "humanBoard") {
-      informator.textContent = `Enemy has missed!`;
+      informator.textContent = `The enemy has missed!`;
       element.classList.add("theImageJittery");
     } else {
       informator.textContent = `You have missed!`;
@@ -249,7 +250,7 @@ export function attackHumanUI(board, computer, boardClass) {
 
 export function attackEnemyUI(board, boardClass) {
   const informator = document.querySelector(".informator");
-  informator.textContent = `Attack enemy!`;
+  informator.textContent = `Attack the enemy!`;
   const boardUI = document.getElementsByClassName(`${boardClass}`)[0].children;
   [...boardUI].forEach((cube) => {
     cube.addEventListener("click", () => enemyAttackHandler(board, cube));
@@ -286,4 +287,4 @@ createFavicon();
 displayInfomator();
 createSections();
 boardTitle("human", "left-side", "Your board");
-boardTitle("computer", "right-side", "Enemy Board");
+boardTitle("computer", "right-side", "Enemy's Board");
