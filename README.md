@@ -8,12 +8,12 @@ This project is a single-player Battleship browser game primarily created for le
 ```
 git clone https://github.com/KawalaE/Battleship.git
 cd Battleship
-npm install
 code . //To open VS Code
 ```
+![BattleshipOpera2024-03-0419-52-04-ezgif com-video-to-gif-converter](https://github.com/KawalaE/Battleship/assets/112077671/0dcfc951-31fe-470c-b1bb-382592405b87)
+
 
 ### Tech stack
-
 <div style="display:flex;">
 <img src="src/assets/readme/js.svg"></img>
 <img src="src/assets/readme/css.svg"></img>
